@@ -16,7 +16,6 @@ library(rvest)
 library(plotly)
 library(cluster)
 library(ggdendro)
-theme_set(theme_light())
 ```
 # Tipos de filme de Sylvester Stallone
 

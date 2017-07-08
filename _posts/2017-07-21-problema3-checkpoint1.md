@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Problema 3 checkpoint 1
-date: 2017-07-08 14:04:32
+date: 2017-07-08 15:36:04
 published: true
 tags: [htmlwidgets, r]
 ---
@@ -106,7 +106,6 @@ library(plotly)
 {% highlight r %}
 library(cluster)
 library(ggdendro)
-theme_set(theme_light())
 {% endhighlight %}
 # Tipos de filme de Sylvester Stallone
 
