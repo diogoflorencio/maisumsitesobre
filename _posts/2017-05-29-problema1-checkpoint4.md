@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Problema 1 checkpoint 4
-date: 2017-07-08 14:04:08
+date: 2017-07-08 18:45:29
 published: true
 tags: [htmlwidgets, r]
 ---
