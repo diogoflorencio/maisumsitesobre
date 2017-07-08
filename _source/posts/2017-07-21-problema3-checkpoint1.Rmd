@@ -1,0 +1,79 @@
+---
+layout: post
+title:  Problema 3 checkpoint 1
+date: `r Sys.time()`
+published: true
+tags: [htmlwidgets, r]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_code}
+library(tidyverse, warn.conflicts = F)
+library(rvest)
+library(plotly)
+library(cluster)
+library(ggdendro)
+theme_set(theme_light())
+```
+# Tipos de filme de Sylvester Stallone
+
+Os dados utilizados foram do [Rotten Tomatoes](https://www.rottentomatoes.com) sobre os filmes de Sylvester Stallone.
+```{r}
+from_page <- read_html("https://www.rottentomatoes.com/celebrity/sylvester_stallone") %>% 
+    html_node("#filmographyTbl") %>% # A sintaxe da expressão é de um seletor à lá JQuery: https://rdrr.io/cran/rvest/man/html_nodes.html 
+    html_table(fill=TRUE) %>% # Faz parse
+    as.tibble()
+
+filmes = from_page %>% 
+    filter(RATING != "No Score Yet", 
+           `BOX OFFICE` != "—", 
+           CREDIT != "Executive Producer") %>%
+    mutate(RATING = as.numeric(gsub("%", "", RATING)), 
+           `BOX OFFICE` = as.numeric(gsub("[$|M]", "", `BOX OFFICE`))) %>% 
+    filter(`BOX OFFICE` >= 1) # Tem dois filmes que não parecem ter sido lançados no mundo todo
+```
+Para iniciar a análise de agrupamento considerei as variáveis RATING e BOX OFFICE. Inicialmente as váriaveis não apresentaram uma estrura clara de grupo, mas ao normalizar a escala os resultados obtidos foram diferentes.
+```{r}
+agrupamento_h_2d = filmes %>% 
+    column_to_rownames("TITLE") %>%
+    select(RATING, `BOX OFFICE`) %>% 
+    mutate(`BOX OFFICE` = log10(`BOX OFFICE`)) %>% 
+    mutate_all(funs(scale)) %>% 
+    dist(method = "euclidean") %>% 
+    hclust(method = "centroid")
+
+ggdendrogram(agrupamento_h_2d, rotate = TRUE)
+
+filmes2 = filmes %>% mutate(`BOX OFFICE` = log10(`BOX OFFICE`))
+plota_hclusts_2d(agrupamento_h_2d, 
+                 filmes2, 
+                 c("RATING", "`BOX OFFICE`"), 
+                 linkage_method = "ward.D", ks = 1:6) + scale_y_log10()
+
+distancias = filmes %>% 
+    column_to_rownames("TITLE") %>%
+    select(RATING, `BOX OFFICE`) %>% 
+    mutate(`BOX OFFICE` = log10(`BOX OFFICE`)) %>% 
+    mutate_all(funs(scale)) %>% 
+    dist(method = "euclidean")
+
+plot(silhouette(cutree(agrupamento_h_2d, k = 4), distancias))
+```
+Após a execução do algoritmo, a melhor solução foi com 3 grupos, pois parece estar melhor separado. Os grupos podem ser classificados em: acima da média (grupo1), razoáveis (grupo2) e abaixo da media. Exemplos de filmes que se encaixam no agrupamento são Creed e Rocky Balboa. Ambos pertencentes ao grupo acima da média sendo filmes muito bem avaliado pelo público. 
+```{r}
+filmes2 = agrupamento_h_md = filmes %>% 
+    mutate(TITLE_LENGTH = nchar(TITLE)) 
+
+
+atribuicoes_long %>% 
+    filter(k == 3) %>%
+    ggplot(aes(x = variavel, y = valor, group = TITLE, colour = grupo)) + 
+    geom_point(alpha = .3, size = .5) + 
+    geom_line(alpha = .7) + 
+    facet_wrap(~ paste("Grupo ", grupo)) + 
+    labs(x = "", y = "z-score")
+```
+

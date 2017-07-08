@@ -1,13 +1,12 @@
 # Site settings
-title: mais um site sobre
-subtitle: estatísticas e outras coisas
-email: arthurlustosaa@gmail.com
+title: Portfolio
+subtitle: Analise de dados
+email: diogo.lima@ccc.ufcg.edu.br
 description: > # this means to ignore newlines until "baseurl:"
-  um site sobre estatísticas, tutorias e coisas outras. 
+  portfólio das tarefas realizadas na disciplina de análise de dados
 baseurl: "/portifolioAnaliseDeDados" # the subpath of your site, e.g. /blog/
 url: "https://diogoflorencio.github.io/portifolioAnaliseDeDados/" # the base hostname & protocol for your site
-twitter_username: arthurlustosa_
-github_username:  arthurlustosa
+github_username:  diogoflorencio
 permalink: /:year/:month/:title.html
 
 # Build settings
