@@ -4,8 +4,8 @@ subtitle: estatísticas e outras coisas
 email: arthurlustosaa@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   um site sobre estatísticas, tutorias e coisas outras. 
-baseurl: "/maisumsitesobre" # the subpath of your site, e.g. /blog/
-url: "https://arthurlustosa.github.io/maisumsitesobre/" # the base hostname & protocol for your site
+baseurl: "/portifolioAnaliseDeDados" # the subpath of your site, e.g. /blog/
+url: "https://diogoflorencio.github.io/portifolioAnaliseDeDados/" # the base hostname & protocol for your site
 twitter_username: arthurlustosa_
 github_username:  arthurlustosa
 permalink: /:year/:month/:title.html
