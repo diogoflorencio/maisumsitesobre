@@ -57,7 +57,7 @@ prisonBreak %>%
   geom_point()
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-2](/portifolioAnaliseDeDadosfigure/source/posts/2017-05-22-problema1-checkpoint1/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-2](/portifolioAnaliseDeDados/figure/source/posts/2017-05-22-problema1-checkpoint1/unnamed-chunk-2-1.png)
 A qualidade das temporadas vem caindo ao longo da série, porém quase todos os episódios são avaliados entre 9 e 8. O episódio 21 "Go", penultimo da primeira temporada tem a maior avaliação com 9,5. Já o episódio 73 "The Sunshine State", da 4º temporada detem a menor avaliação com 7,8.  
 
 ###The Walking Dead

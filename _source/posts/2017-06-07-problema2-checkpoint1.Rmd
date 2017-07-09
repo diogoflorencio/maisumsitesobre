@@ -54,7 +54,8 @@ Considerando a mediana e as notas maximas e mínimas dos episódios de cada sér
 dados %>% 
     group_by(series_name) %>% 
     summarise(mediana = median(UserRating),
-              variancia = var(UserRating))
+              variancia = var(UserRating)) %>%
+    ungroup()
 
 ```
 Daredevil possui a melhor avaliação no IMBD. A série apresenta uma mediana superior e se destaca por possuir 3 episódios atingindo a maior avaliação 9,5. Essas caracteristicas garantiram uma pequena vantagem para as demais, em resumo Daredevil proporcionalmente possui uma quantidade maior de episódios melhor avaliados avaliados.

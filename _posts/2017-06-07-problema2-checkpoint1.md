@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Problema 2 checkpoint 1
-date: 2017-07-08 18:45:45
+date: 2017-07-08 21:16:16
 published: true
 tags: [htmlwidgets, r]
 ---
@@ -123,7 +123,8 @@ Considerando a mediana e as notas maximas e mínimas dos episódios de cada sér
 dados %>% 
     group_by(series_name) %>% 
     summarise(mediana = median(UserRating),
-              variancia = var(UserRating))
+              variancia = var(UserRating)) %>%
+    ungroup()
 {% endhighlight %}
 
 
