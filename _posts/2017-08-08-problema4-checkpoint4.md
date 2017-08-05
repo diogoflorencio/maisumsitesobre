@@ -50,7 +50,7 @@ data.frame(rbind(ic_java_2016, ic_java_2017)) %>%
   ggtitle("Popularidade de java 2016 - 2017")
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-2](/portifolioAnaliseDeDadosfigure/source/posts/2017-08-08-problema4-checkpoint4/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-2](/portifolioAnaliseDeDados/figure/source/posts/2017-08-08-problema4-checkpoint4/unnamed-chunk-2-1.png)
 
 ### Teste de hipótese
 Análisando a amostra, agora por teste de hipótese, primeiro calculei a diferença observada nas médias de popularidade em 2016 e 2017. 
@@ -92,7 +92,7 @@ tibble(diferenca = diffs) %>%
   geom_vline(xintercept = diff_media_observada, size = 2)
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-4](/portifolioAnaliseDeDadosfigure/source/posts/2017-08-08-problema4-checkpoint4/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-4](/portifolioAnaliseDeDados/figure/source/posts/2017-08-08-problema4-checkpoint4/unnamed-chunk-4-1.png)
 
 {% highlight r %}
 #sum(abs(diffs) >= abs(diff_media_observada)) / length(diffs)
