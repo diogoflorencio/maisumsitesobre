@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Análise de Dados UFCG</title>
+  <meta name="author" content="Matt Swanson" />
+  <meta name="description" content="The blog of Matt Swanson" />
+  <link rel="canonical" href="https://diogoflorencio.github.io/portifolioAnaliseDeDados//2017/08/problema1-checkpoint1.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/portifolioAnaliseDeDados/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Matt Swanson" href="https://diogoflorencio.github.io/portifolioAnaliseDeDados//atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Oi,</h1>
+  <a href="/">
+    
+    <img src="/portifolioAnaliseDeDados/logo.jpg" id="logo" alt="Blog logo"/>
+    
+  </a>
+  <h5>Eu sou Diogo Florêncio.</h5>
+  <div id="bio">
+    <p>Este portfólio contém algumas análises, realizadas para disciplina de análise de dados.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="swanson on Github" href="https://github.com/diogoflorencio">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a title="swanson on Hacker News" href="https://news.ycombinator.com/user?id=swanson">
+     <i class="fa fa-hacker-news"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a title="_swanson on Twitter" href="https://twitter.com/_swanson">
+    <i class="fa fa-twitter-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  
+  
+
+  August 05, 2017
+  <a href="/portifolioAnaliseDeDados">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Problema 1 checkpoint 1</h1>
+
+<div id="post">
+  
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Installed Rcpp (0.12.12) different from Rcpp used to build dplyr (0.12.11).
+## Please reinstall dplyr to avoid random crashes or undefined behavior.</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## 
+## Attaching package: 'dplyr'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">dados</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"../../dados/series_from_imdb.csv"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+</span><span class="n">dados</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">series_name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Daredevil"</span><span class="p">,</span><span class="w"> </span><span class="s2">"The Walking Dead"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Prison Break"</span><span class="p">))</span><span class="w">
+</span><span class="n">prisonBreak</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">series_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Prison Break"</span><span class="p">)</span><span class="w">
+</span><span class="n">TWD</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">series_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"The Walking Dead"</span><span class="p">)</span><span class="w">
+</span><span class="n">daredevil</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">series_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Daredevil"</span><span class="p">)</span></code></pre></figure>
+
+<p>#Introdução
+###Prison Break
+Prison Break é uma série de televisão norte-americana de ação e suspense, transmitida originalmente pela Fox desde 29 de agosto de 2005. Em 2015, a Fox anunciou uma quinta temporada contendo 9 episódios, que estreou em 4 de abril de 2017. 
+Considerando as 4 ultimas temporadas, confira as avaliações dos expectadores para os episódios de cada temporada.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">prisonBreak</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">temporada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">season_ep</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserRating</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temporada</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_line</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">()</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-22-problema1-checkpoint1/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" />
+A qualidade das temporadas vem caindo ao longo da série, porém quase todos os episódios são avaliados entre 9 e 8. O episódio 21 “Go”, penultimo da primeira temporada tem a maior avaliação com 9,5. Já o episódio 73 “The Sunshine State”, da 4º temporada detem a menor avaliação com 7,8.</p>
+
+<p>###The Walking Dead
+The Walking Dead é uma série de televisão dramática e pós-apocalíptica norte-americana, estreou no dia 30 outubro de 2010, no canal de televisão a cabo AMC, nos Estados Unidos. A série possui 7 temporadas finalizadas, confira a avaliação dos expectadores para os episódios de cada temporada.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">TWD</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">temporada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">season_ep</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserRating</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temporada</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_line</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">()</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-22-problema1-checkpoint1/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" />
+O 9º episódio “No Way Out”, da 6º temporada se destaca com a maior nota da série com 9,7. A pior avaliação foi atribuida ao 6º episódio “Swear”, da 7º temporada com nota 5,7.</p>
+
+<p>###Daredevil
+Daredevil é uma websérie americana criada para a Netflix por Drew Goddard que baseia-se no personagem de mesmo nome da Marvel. Veja a avaliação dos expectadores para os episódios de cada temporada.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">daredevil</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">temporada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">season_ep</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserRating</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temporada</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_line</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">()</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-22-problema1-checkpoint1/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" />
+Todos os episódios da série estão avaliados entre 8,5 e 9,5. A 2º temporada se destaca com 3 episódios atingindo a maior avaliação, nota 9,5.</p>
+
+<p>#Qual série possui uma avaliação melhor no IMDB?
+Considerando a mediana e as notas maximas e mínimas dos episódios de cada série, temos:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">group_by</span><span class="p">(</span><span class="n">series_name</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">summarise</span><span class="p">(</span><span class="n">mediana</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">UserRating</span><span class="p">),</span><span class="w">
+              </span><span class="n">maior_nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">UserRating</span><span class="p">),</span><span class="w">
+              </span><span class="n">menor_nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">UserRating</span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## # A tibble: 3 x 4
+##        series_name mediana maior_nota menor_nota
+##             &lt;fctr&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1        Daredevil    8.95        9.5        8.5
+## 2     Prison Break    8.60        9.5        7.8
+## 3 The Walking Dead    8.30        9.7        5.7</code></pre></figure>
+
+<p>Daredevil possui a melhor avaliação no IMBD. A série apresenta uma mediana superior e se destaca por possuir 3 episódios atingindo a maior avaliação 9,5. Essas caracteristicas garantiram uma pequena vantagem para as demais, em resumo Daredevil proporcionalmente possui uma quantidade maior de episódios melhor avaliados avaliados.</p>
+
+<p>#Qual das séries tem menor regularidade na qualidade dos episódios?</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">series_name</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserRating</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">outlier.color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">   
+    </span><span class="n">geom_jitter</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-22-problema1-checkpoint1/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" />
+Os boxplots das séries, mostram que The Walking Dead possui maior variância na avaliação de seus episódios. Mesmo considerando a avaliação dos epísódios por temporada, ainda sim The Walking Dead possui maior variância. Isto demonstra que a séria não matém uma regularidade na qualidade de seus episódios, sendo bem mais irregular que Daredevi ou Prison Break.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">group_by</span><span class="p">(</span><span class="n">series_name</span><span class="p">,</span><span class="w"> </span><span class="n">season</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">summarise</span><span class="p">(</span><span class="n">variancia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">var</span><span class="p">(</span><span class="n">UserRating</span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## # A tibble: 13 x 3
+## # Groups:   series_name [?]
+##         series_name season  variancia
+##              &lt;fctr&gt;  &lt;int&gt;      &lt;dbl&gt;
+##  1        Daredevil      1 0.06141026
+##  2        Daredevil      2 0.10692308
+##  3     Prison Break      1 0.06945887
+##  4     Prison Break      2 0.02521645
+##  5     Prison Break      3 0.05666667
+##  6     Prison Break      4 0.11210145
+##  7 The Walking Dead      1 0.11066667
+##  8 The Walking Dead      2 0.24641026
+##  9 The Walking Dead      3 0.18562500
+## 10 The Walking Dead      4 0.34000000
+## 11 The Walking Dead      5 0.32195833
+## 12 The Walking Dead      6 0.66250000
+## 13 The Walking Dead      7 0.66562500</code></pre></figure>
+
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema4-checkpoint4.html">Problema 4 checkpoint 4</a>
+    </li>
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema3-checkpoint1.html">Problema 3 checkpoint 1</a>
+    </li>
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema1-checkpoint4.html">Problema 1 checkpoint 4</a>
+    </li>
+    
+  </ul>
+</div>
+ -->
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are my own and don't necessarily represent my 
+    employer’s positions, strategies or opinions.
+  </p>
+  
+
+  <p>
+    © Matt Swanson, 2014 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-xxxx-x']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

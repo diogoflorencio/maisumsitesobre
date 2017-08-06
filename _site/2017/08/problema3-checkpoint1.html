@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Análise de Dados UFCG</title>
+  <meta name="author" content="Matt Swanson" />
+  <meta name="description" content="The blog of Matt Swanson" />
+  <link rel="canonical" href="https://diogoflorencio.github.io/portifolioAnaliseDeDados//2017/08/problema3-checkpoint1.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/portifolioAnaliseDeDados/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Matt Swanson" href="https://diogoflorencio.github.io/portifolioAnaliseDeDados//atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Oi,</h1>
+  <a href="/">
+    
+    <img src="/portifolioAnaliseDeDados/logo.jpg" id="logo" alt="Blog logo"/>
+    
+  </a>
+  <h5>Eu sou Diogo Florêncio.</h5>
+  <div id="bio">
+    <p>Este portfólio contém algumas análises, realizadas para disciplina de análise de dados.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="swanson on Github" href="https://github.com/diogoflorencio">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a title="swanson on Hacker News" href="https://news.ycombinator.com/user?id=swanson">
+     <i class="fa fa-hacker-news"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a title="_swanson on Twitter" href="https://twitter.com/_swanson">
+    <i class="fa fa-twitter-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  
+  
+
+  August 05, 2017
+  <a href="/portifolioAnaliseDeDados">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Problema 3 checkpoint 1</h1>
+
+<div id="post">
+  
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">,</span><span class="w"> </span><span class="n">warn.conflicts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Installed Rcpp (0.12.12) different from Rcpp used to build dplyr (0.12.11).
+## Please reinstall dplyr to avoid random crashes or undefined behavior.</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Conflicts with tidy packages -----------------------------------------</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rvest</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Carregando pacotes exigidos: xml2</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## 
+## Attaching package: 'rvest'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following object is masked from 'package:readr':
+## 
+##     guess_encoding</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">plotly</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## 
+## Attaching package: 'plotly'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following object is masked from 'package:stats':
+## 
+##     filter</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following object is masked from 'package:graphics':
+## 
+##     layout</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggdendro</span><span class="p">)</span></code></pre></figure>
+
+<h1 id="tipos-de-filme-de-sylvester-stallone">Tipos de filme de Sylvester Stallone</h1>
+
+<p>Os dados utilizados foram do <a href="https://www.rottentomatoes.com">Rotten Tomatoes</a> sobre os filmes de Sylvester Stallone.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">from_page</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_html</span><span class="p">(</span><span class="s2">"https://www.rottentomatoes.com/celebrity/sylvester_stallone"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_node</span><span class="p">(</span><span class="s2">"#filmographyTbl"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="c1"># A sintaxe da expressão é de um seletor à lá JQuery: https://rdrr.io/cran/rvest/man/html_nodes.html 
+</span><span class="w">    </span><span class="n">html_table</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="c1"># Faz parse
+</span><span class="w">    </span><span class="n">as.tibble</span><span class="p">()</span><span class="w">
+
+</span><span class="n">filmes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from_page</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">filter</span><span class="p">(</span><span class="n">RATING</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"No Score Yet"</span><span class="p">,</span><span class="w"> 
+           </span><span class="n">`BOX OFFICE`</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"—"</span><span class="p">,</span><span class="w"> 
+           </span><span class="n">CREDIT</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"Executive Producer"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">mutate</span><span class="p">(</span><span class="n">RATING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">"%"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">RATING</span><span class="p">)),</span><span class="w"> 
+           </span><span class="n">`BOX OFFICE`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">"[$|M]"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">`BOX OFFICE`</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">filter</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">Tem</span><span class="w"> </span><span class="n">dois</span><span class="w"> </span><span class="n">filmes</span><span class="w"> </span><span class="n">que</span><span class="w"> </span><span class="n">n</span><span class="err">ã</span><span class="n">o</span><span class="w"> </span><span class="n">parecem</span><span class="w"> </span><span class="n">ter</span><span class="w"> </span><span class="n">sido</span><span class="w"> </span><span class="n">lan</span><span class="err">ç</span><span class="n">ados</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">mundo</span><span class="w"> </span><span class="n">todo</span></code></pre></figure>
+
+<p>Para iniciar a análise de agrupamento considerei as variáveis RATING e BOX OFFICE. Inicialmente as váriaveis não apresentaram uma estrura clara de grupo, mas ao normalizar a escala os resultados obtidos foram diferentes.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">agrupamento_h_2d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filmes</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">column_to_rownames</span><span class="p">(</span><span class="s2">"TITLE"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">select</span><span class="p">(</span><span class="n">RATING</span><span class="p">,</span><span class="w"> </span><span class="n">`BOX OFFICE`</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">mutate</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log10</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">mutate_all</span><span class="p">(</span><span class="n">funs</span><span class="p">(</span><span class="n">scale</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">dist</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"euclidean"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">hclust</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"centroid"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Setting row names on a tibble is deprecated.</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggdendrogram</span><span class="p">(</span><span class="n">agrupamento_h_2d</span><span class="p">,</span><span class="w"> </span><span class="n">rotate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-07-21-problema3-checkpoint1/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" /></p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">filmes2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filmes</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">mutate</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log10</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="p">))</span><span class="w">
+</span><span class="n">plota_hclusts_2d</span><span class="p">(</span><span class="n">agrupamento_h_2d</span><span class="p">,</span><span class="w"> 
+                 </span><span class="n">filmes2</span><span class="p">,</span><span class="w"> 
+                 </span><span class="nf">c</span><span class="p">(</span><span class="s2">"RATING"</span><span class="p">,</span><span class="w"> </span><span class="s2">"`BOX OFFICE`"</span><span class="p">),</span><span class="w"> 
+                 </span><span class="n">linkage_method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ward.D"</span><span class="p">,</span><span class="w"> </span><span class="n">ks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_log10</span><span class="p">()</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plota_hclusts_2d(agrupamento_h_2d, filmes2, c("RATING", "`BOX OFFICE`"), : não foi possível encontrar a função "plota_hclusts_2d"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">distancias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filmes</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">column_to_rownames</span><span class="p">(</span><span class="s2">"TITLE"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">select</span><span class="p">(</span><span class="n">RATING</span><span class="p">,</span><span class="w"> </span><span class="n">`BOX OFFICE`</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">mutate</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log10</span><span class="p">(</span><span class="n">`BOX OFFICE`</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">mutate_all</span><span class="p">(</span><span class="n">funs</span><span class="p">(</span><span class="n">scale</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">dist</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"euclidean"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Setting row names on a tibble is deprecated.</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">silhouette</span><span class="p">(</span><span class="n">cutree</span><span class="p">(</span><span class="n">agrupamento_h_2d</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="n">distancias</span><span class="p">))</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-07-21-problema3-checkpoint1/unnamed-chunk-2-2.png" alt="plot of chunk unnamed-chunk-2" />
+Após a execução do algoritmo, a melhor solução foi com 3 grupos, pois parece estar melhor separado. Os grupos podem ser classificados em: acima da média (grupo1), razoáveis (grupo2) e abaixo da media. Exemplos de filmes que se encaixam no agrupamento são Creed e Rocky Balboa. Ambos pertencentes ao grupo acima da média sendo filmes muito bem avaliado pelo público.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">filmes2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">agrupamento_h_md</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filmes</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">mutate</span><span class="p">(</span><span class="n">TITLE_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nchar</span><span class="p">(</span><span class="n">TITLE</span><span class="p">))</span><span class="w"> 
+
+
+</span><span class="n">atribuicoes_long</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">filter</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variavel</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">valor</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TITLE</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grupo</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.3</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"Grupo "</span><span class="p">,</span><span class="w"> </span><span class="n">grupo</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"z-score"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(lhs, parent, parent): objeto 'atribuicoes_long' não encontrado</code></pre></figure>
+
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema4-checkpoint4.html">Problema 4 checkpoint 4</a>
+    </li>
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema1-checkpoint4.html">Problema 1 checkpoint 4</a>
+    </li>
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema1-checkpoint1.html">Problema 1 checkpoint 1</a>
+    </li>
+    
+  </ul>
+</div>
+ -->
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are my own and don't necessarily represent my 
+    employer’s positions, strategies or opinions.
+  </p>
+  
+
+  <p>
+    © Matt Swanson, 2014 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-xxxx-x']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

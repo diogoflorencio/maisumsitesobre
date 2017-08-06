@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Análise de Dados UFCG</title>
+  <meta name="author" content="Matt Swanson" />
+  <meta name="description" content="The blog of Matt Swanson" />
+  <link rel="canonical" href="https://diogoflorencio.github.io/portifolioAnaliseDeDados//2017/08/problema1-checkpoint4.html" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/portifolioAnaliseDeDados/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Matt Swanson" href="https://diogoflorencio.github.io/portifolioAnaliseDeDados//atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Oi,</h1>
+  <a href="/">
+    
+    <img src="/portifolioAnaliseDeDados/logo.jpg" id="logo" alt="Blog logo"/>
+    
+  </a>
+  <h5>Eu sou Diogo Florêncio.</h5>
+  <div id="bio">
+    <p>Este portfólio contém algumas análises, realizadas para disciplina de análise de dados.</p>
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="swanson on Github" href="https://github.com/diogoflorencio">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+  <a title="swanson on Hacker News" href="https://news.ycombinator.com/user?id=swanson">
+     <i class="fa fa-hacker-news"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+  <a title="_swanson on Twitter" href="https://twitter.com/_swanson">
+    <i class="fa fa-twitter-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Atom feed" id="atom" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a>
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  
+  
+
+  August 05, 2017
+  <a href="/portifolioAnaliseDeDados">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Problema 1 checkpoint 4</h1>
+
+<div id="post">
+  
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Installed Rcpp (0.12.12) different from Rcpp used to build dplyr (0.12.11).
+## Please reinstall dplyr to avoid random crashes or undefined behavior.</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## 
+## Attaching package: 'dplyr'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">dados</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"../../dados/series_from_imdb.csv"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span></code></pre></figure>
+
+<p>#Qual a melhor série?
+A melhor série deve ter episódios bem avaliados, além de manter regularidade na avaliação. Seguindo esses critérios, o gráfico exibe a relacação entre mediana e variância para nota dos episódios de cada série. Quanto mais acima a série está melhor é sua avaliação, quanto mais a esquerda está mais regular é.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">group_by</span><span class="p">(</span><span class="n">serie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">series_name</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">summarise</span><span class="p">(</span><span class="n">mediana</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">UserRating</span><span class="p">),</span><span class="w">
+              </span><span class="n">variancia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">var</span><span class="p">(</span><span class="n">UserRating</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">arrange</span><span class="p">(</span><span class="n">desc</span><span class="p">(</span><span class="n">mediana</span><span class="p">),</span><span class="n">variancia</span><span class="p">)</span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">slice</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variancia</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mediana</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serie</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">theme_classic</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Top 10 melhores séries"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-29-problema1-checkpoint4/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" />
+As melhores séries devem estar localizadas acima e a esquerda. Sherlock e Sense8 possuem as melhores avaliações, porém apresentam uma irregularidade maior que as demais. Deste modo Stranger Things e Daredevil podem ser consideradas como as melhores séries, por equilibrarem boa avaliação e regularidade.</p>
+
+<p>###As melhores séries tem muitos episódios?
+Uma série com poucos episódios teria mais chances de manter a regularidade e boa avaliação dos episódios? Afim de repsonder a pergunta, o gráfico exibe a relacação entre mediana, variância e quantidade, para os episódios de cada série. Os pontos mais acima e a esquerda referenciam as melhores séries. Quanto maior for o ponto mais episódios a série tem.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">group_by</span><span class="p">(</span><span class="n">serie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">series_name</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">summarise</span><span class="p">(</span><span class="n">mediana</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">UserRating</span><span class="p">),</span><span class="w">
+              </span><span class="n">variancia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">var</span><span class="p">(</span><span class="n">UserRating</span><span class="p">),</span><span class="w"> 
+              </span><span class="n">qtd_episodios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">())</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variancia</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mediana</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qtd_episodios</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">theme_classic</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Avaliação X Regularidade X Quantidade de Eposódios"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-29-problema1-checkpoint4/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" />
+Os pontos mais acima a a esquerda são as melhores séries, neste setor do gráfico os pontos são menores indicando que as melhores séries não tem muitos episódios.</p>
+
+<p>#Qual a melhor temporada?
+Como a avaliação e a regularidade das séries se comportam ao longo das temporadas? O gráfico de barras relaciona a avaliação (mediana) e variância dos episódios ao longo das temporadas, de forma independente das séries. O objetivo é, pra qualquer série sugerir qual seria a melhor temporada ou temporada mais irregular.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">temporada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">season</span><span class="p">)</span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">nota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">UserRating</span><span class="p">),</span><span class="w">
+            </span><span class="n">variancia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">var</span><span class="p">(</span><span class="n">UserRating</span><span class="p">))</span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temporada</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nota</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">variancia</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">breaks</span><span class="o">=</span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-29-problema1-checkpoint4/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" />
+A melhor temporada seria a 3º. No periodo equivalente a 3º temporada, a linha possui a menor espessura indicando menor irreguladade das séries, é também na 3º temporada que a maioria das séries tem sua melhor avaliação.</p>
+
+<h3 id="qual-temporada-tem-mais-episódios">Qual temporada tem mais episódios?</h3>
+<p>A temporada com mais episódios, pode sugerir qual será a temporada mais extensa de uma série. O gráfico exibe a quantidade de episódios ao longo das temporadas, considerando todas séries.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dados</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">temporada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">season</span><span class="p">)</span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">qtd_episodios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">())</span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temporada</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qtd_episodios</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_line</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">breaks</span><span class="o">=</span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span></code></pre></figure>
+
+<p><img src="/portifolioAnaliseDeDadosfigure/source/posts/2017-05-29-problema1-checkpoint4/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" />
+A quantidade de episódios decresce ao longo das temporadas. Deste modo, a primeira temporada tende a ser a mais extensa para maioria das séries.</p>
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema4-checkpoint4.html">Problema 4 checkpoint 4</a>
+    </li>
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema3-checkpoint1.html">Problema 3 checkpoint 1</a>
+    </li>
+    
+    <li>
+      <span>05 Aug 2017 &raquo;</span> <a href= "/2017/08/problema1-checkpoint1.html">Problema 1 checkpoint 1</a>
+    </li>
+    
+  </ul>
+</div>
+ -->
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are my own and don't necessarily represent my 
+    employer’s positions, strategies or opinions.
+  </p>
+  
+
+  <p>
+    © Matt Swanson, 2014 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-xxxx-x']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
