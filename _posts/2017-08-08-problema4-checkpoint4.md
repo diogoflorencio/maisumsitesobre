@@ -31,6 +31,7 @@ java_2017 = filter(amostra, file_extension == "java",
 O parâmetro utilizado para mensurar a popularidade de `java` foi a quantidade média de edições por ano.
 
 ###Intervalo de Confiança
+
 Análisando a amostra por meio do método bootstrap estimei os `intervalos de confiança` para popularidade de `java`, por ano. A análise foi realizada com confiança de 95%, o bootstrap gerou 10.000 reamostragens. Os resultados foram bem expressivos, a média de edições foi estimada em [3845 ; 4010] para 2016 e [3135 ; 3444] para 2017. A diferença de popularidade é sigficativa, a estimativa aponta uma queda na popularidade de `java`.
 
 {% highlight r %}
